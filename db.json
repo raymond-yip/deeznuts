@@ -1,0 +1,54 @@
+{
+  "queueitems": [
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402606",
+      "datetime": "2018-11-08T12:00:00.000 GMT",
+      "source": "Pega",
+      "target": "TCSStaging",
+      "status": "ERROR",
+      "errormessage": "Foreign key conflict"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402607",
+      "datetime": "2018-11-08T12:00:00.000 GMT",
+      "source": "Pega",
+      "target": "TCSStaging",
+      "status": "ERROR",
+      "errormessage": "Foreign key conflict"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402608",
+      "datetime": "2018-11-08T12:00:00.000 GMT",
+      "source": "Pega",
+      "target": "TCSStaging",
+      "status": "ERROR",
+      "errormessage": "Foreign key conflict"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402609",
+      "datetime": "2018-11-08T12:00:00.000 GMT",
+      "source": "Pega",
+      "target": "TCSStaging",
+      "status": "ERROR",
+      "errormessage": "Foreign key conflict"
+    }
+  ],
+  "queueitemdata": [
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402606",
+      "data": "<test id=\"1\">hello world!!</test>"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402607",
+      "data": "<test id=\"2\">hello world</test>"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402608",
+      "data": "<test id=\"3\">hello world</test>"
+    },
+    {
+      "id": "7115d73a-7053-4aca-be3b-59932e402609",
+      "data": "<test id=\"4\">hello world</test>"
+    }
+  ]
+}

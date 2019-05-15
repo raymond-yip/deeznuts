@@ -1,0 +1,61 @@
+mat-card {
+	min-height:75%;
+	min-width:95%;
+}
+mat-card-content {
+	min-height: 100%;
+	min-width: 100%;
+}
+.fill-remaining-space {
+	/* This fills the remaining space, by using flexbox. 
+		Every toolbar row uses a flexbox row layout. */
+	flex: 1 1 auto;
+}
+@media screen and (min-width: 0) and (max-width: 1199px) {
+	#xmleditor,
+	#xsleditor,
+	#result-window {
+		width:100%;
+		border-bottom: 2px solid #F8F8F2;
+		height: 33.3%
+	}
+	#result-window {
+		border-bottom: none;
+	}
+}
+@media screen and (min-width: 1200px) {
+	#xmleditor {
+		width:50%;
+		height:50%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border-bottom: 2px solid #F8F8F2;
+		border-right: 2px solid #F8F8F2;
+	}
+	#xsleditor {
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	#result-window {
+		width:50%;
+		height:50%;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		border-right: 2px solid #F8F8F2;
+	}
+}
+.inline-icon { vertical-align: bottom; }
+#xmlLabel, #xslLabel, #resultLabel {
+	padding: 3px;
+	background-color: #333;
+	color: #fff;
+	opacity: 0.5;
+	position:absolute; top:30px; 
+	right: 17px;
+	border: 1px solid #ccc;
+}

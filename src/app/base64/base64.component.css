@@ -1,0 +1,48 @@
+mat-card {
+	min-height:75%;
+	min-width:95%;
+}
+mat-card-content {
+	min-height: 100%;
+	min-width: 100%;
+}
+@media screen and (min-width: 0) and (max-width: 1199px) {
+	#editor,
+	#result-window {
+		width:100%;
+		border-bottom: 2px solid #F8F8F2;
+		height: 45%
+	}
+	#result-window {
+		border-bottom: none;
+	}
+}
+@media screen and (min-width: 1200px) {
+	#editor {
+		width:100%;
+		height:50%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border-bottom: 2px solid #F8F8F2;
+		border-right: 2px solid #F8F8F2;
+	}
+	#result-window {
+		width:100%;
+		height:50%;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		border-right: 2px solid #F8F8F2;
+	}
+}
+.inline-icon { vertical-align: bottom; }
+#editorLabel, #resultLabel {
+	padding: 3px;
+	background-color: #333;
+	color: #fff;
+	opacity: 0.5;
+	position:absolute; top:30px; 
+	right: 17px;
+	border: 1px solid #ccc;
+}

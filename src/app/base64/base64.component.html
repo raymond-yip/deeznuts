@@ -1,0 +1,32 @@
+<mat-toolbar>
+	<span class="material-icons">settings</span>
+	<span>Base64 Encode or Decode</span>
+</mat-toolbar>
+<mat-card>
+	<mat-card-content>
+		<div ace-editor
+			id="editor"
+			[(text)]="data"
+			[mode]="'xml'"
+			[theme]="'monokai'"
+			[readOnly]="false"
+			style="overflow:auto;font-size:1.2em;">
+			<span id="editorLabel">
+				<span class="inline-icon material-icons">description</span>Editor
+			</span>
+		</div>
+		Encode<mat-slide-toggle>Decode</mat-slide-toggle>
+		<div ace-editor
+			id="result-window"
+			[(text)]="result"
+			[mode]="'xml'"
+			[theme]="'monokai'"
+			[readOnly]="true"
+			style="overflow:auto;font-size:1.2em;">
+			<span id="resultLabel">
+				<span class="inline-icon material-icons">description</span>Result
+			</span>
+		</div>
+		
+	</mat-card-content>
+</mat-card>
