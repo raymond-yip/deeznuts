@@ -1,38 +1,255 @@
 {
   "queueitems": [
     {
-      "id": "7115d73a-7053-4aca-be3b-59932e402606",
-      "datetime": "2018-11-08T12:00:00.000 GMT",
-      "source": "Pega",
-      "target": "TCSStaging",
-      "status": "ERROR",
-      "errormessage": "Foreign key conflict"
+        "QueueID": "DF9BE3E3-6E5C-E911-80EF-005056A16FAC",
+        "ID": "8683BE7E-F6C3-48E5-B193-882427348412",
+        "CreatedDateTime": "20190411 163136.100",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371178</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190411 153138.879</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>Error executing data process; Caused by: java.lang.NullPointerException</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "F1B2F9F6-26FB-4EE4-A423-DA1104580C7F"
     },
     {
-      "id": "7115d73a-7053-4aca-be3b-59932e402607",
-      "datetime": "2018-11-08T12:00:00.000 GMT",
-      "source": "Pega",
-      "target": "TCSStaging",
-      "status": "ERROR",
-      "errormessage": "Foreign key conflict"
+        "QueueID": "2F9D881A-1660-E911-80EF-005056A16FAC",
+        "ID": "7DBE4B6C-5E08-4977-BA99-A5D2E42E85AF",
+        "CreatedDateTime": "20190416 080611.180",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371663</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 070613.008</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>Error executing data process; Caused by: java.lang.NullPointerException</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "C37E2937-929B-4866-90D1-339FD56F6135"
     },
     {
-      "id": "7115d73a-7053-4aca-be3b-59932e402608",
-      "datetime": "2018-11-08T12:00:00.000 GMT",
-      "source": "Pega",
-      "target": "TCSStaging",
-      "status": "ERROR",
-      "errormessage": "Foreign key conflict"
+        "QueueID": "EFBD844F-4B60-E911-80EF-005056A16FAC",
+        "ID": "2559A8B0-9343-494C-A264-CBE2F4028BE4",
+        "CreatedDateTime": "20190416 142659.440",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "B9503CC4-57CC-4B55-95A6-B8EC0E14EC7E"
     },
     {
-      "id": "7115d73a-7053-4aca-be3b-59932e402609",
-      "datetime": "2018-11-08T12:00:00.000 GMT",
-      "source": "Pega",
-      "target": "TCSStaging",
-      "status": "ERROR",
-      "errormessage": "Foreign key conflict"
+        "QueueID": "17FBE45D-5860-E911-80EF-005056A16FAC",
+        "ID": "DC25D505-6CFE-462B-978E-F3DF342F9627",
+        "CreatedDateTime": "20190416 160027.017",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150034.084</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "1B73D504-B6AE-4CBA-A704-739F7D80DA4E"
+    },
+    {
+        "QueueID": "18FBE45D-5860-E911-80EF-005056A16FAC",
+        "ID": "96EB563D-4F59-438A-B666-01771B0D62A4",
+        "CreatedDateTime": "20190416 160030.593",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150037.666</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "365C83E2-4B96-45BD-AE22-F66F5C5BB834"
+    },
+    {
+        "QueueID": "19FBE45D-5860-E911-80EF-005056A16FAC",
+        "ID": "E6FBC868-DE41-420C-A1D0-7FD63E9D0B30",
+        "CreatedDateTime": "20190416 160034.923",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150042.235</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "38EC642E-F283-4B9C-A016-0BE32B06F209"
+    },
+    {
+        "QueueID": "11815B64-5860-E911-80EF-005056A16FAC",
+        "ID": "0B90E401-A9A7-443E-9FC3-41F82F15C2F3",
+        "CreatedDateTime": "20190416 160037.860",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150044.987</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "C20C0DB7-3261-48F5-BEB3-ABBE7D485BD6"
+    },
+    {
+        "QueueID": "12815B64-5860-E911-80EF-005056A16FAC",
+        "ID": "38343F07-C93B-46B5-A58E-E88F07D917D3",
+        "CreatedDateTime": "20190416 160041.090",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150048.076</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "5B5987DD-531B-465C-9107-FD7CEB44AE5F"
+    },
+    {
+        "QueueID": "13815B64-5860-E911-80EF-005056A16FAC",
+        "ID": "17D40D6F-3D61-4895-B1AB-CA4231F7C172",
+        "CreatedDateTime": "20190416 160044.327",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150052.273</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "B74C7514-10F6-4472-A338-BA54DDC9C91A"
+    },
+    {
+        "QueueID": "35F4986A-5860-E911-80EF-005056A16FAC",
+        "ID": "77B6C0DF-FD9D-4C22-A7EF-740A0480E5DB",
+        "CreatedDateTime": "20190416 160048.330",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150055.105</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "2CFB85C5-440D-414B-92BB-51F51998F3F8"
+    },
+    {
+        "QueueID": "37F4986A-5860-E911-80EF-005056A16FAC",
+        "ID": "77BF07D7-6ED2-4C35-9F55-09381ADB263C",
+        "CreatedDateTime": "20190416 160057.323",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "33A65C8A-E225-4943-9EDF-9C0CE0128D7D"
+    },
+    {
+        "QueueID": "3923E173-5860-E911-80EF-005056A16FAC",
+        "ID": "6D34F61F-118A-4C4A-A5C0-4295BE12F603",
+        "CreatedDateTime": "20190416 160109.833",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "358C5AE9-9242-4C4D-8577-B8D5225D99E9"
+    },
+    {
+        "QueueID": "F7EFB97A-5860-E911-80EF-005056A16FAC",
+        "ID": "294F1F1A-19A6-4366-9019-A20B3F930000",
+        "CreatedDateTime": "20190416 160120.623",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "2D1C10E6-C1A8-4695-8E8B-523A083D184A"
+    },
+    {
+        "QueueID": "C2B6D880-5860-E911-80EF-005056A16FAC",
+        "ID": "CF8CF1EB-A446-4B37-95A5-2904B0D386A3",
+        "CreatedDateTime": "20190416 160131.013",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "B56421BE-152D-46D1-83C7-551ACC792855"
+    },
+    {
+        "QueueID": "C3B6D880-5860-E911-80EF-005056A16FAC",
+        "ID": "468A1733-35A2-4421-A282-EFE1E71A381C",
+        "CreatedDateTime": "20190416 160135.350",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "CEC97908-CCFA-4414-B64A-A6A6A1E6A806"
+    },
+    {
+        "QueueID": "E389EF88-5860-E911-80EF-005056A16FAC",
+        "ID": "F5AC0A0C-751B-4EE6-9380-3DC4ECC86914",
+        "CreatedDateTime": "20190416 160139.227",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "E9ACFEF4-E7DC-48E2-A0E3-6FB9985390B1"
+    },
+    {
+        "QueueID": "E489EF88-5860-E911-80EF-005056A16FAC",
+        "ID": "84EE6343-D5C3-4F6E-BFB7-63C640712E9D",
+        "CreatedDateTime": "20190416 160142.037",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "837F0E30-3639-4400-8F91-D613D0DE5465"
+    },
+    {
+        "QueueID": "E589EF88-5860-E911-80EF-005056A16FAC",
+        "ID": "C9971967-A13C-412B-9F1E-B7C0C639D763",
+        "CreatedDateTime": "20190416 160144.407",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "814BD7A9-952E-4CBC-AF71-3155669598E7"
+    },
+    {
+        "QueueID": "E689EF88-5860-E911-80EF-005056A16FAC",
+        "ID": "C23E0F83-A1A2-47D7-A977-6FB7BDA9FB70",
+        "CreatedDateTime": "20190416 160147.340",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150153.485</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "5FEEDD90-FD69-4504-B414-CB4F6A1850F8"
+    },
+    {
+        "QueueID": "24BD388F-5860-E911-80EF-005056A16FAC",
+        "ID": "DDE952B1-C8E5-4C95-9820-7830A1E44977",
+        "CreatedDateTime": "20190416 160149.773",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150156.288</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "FCBE7BB2-7D33-4296-A150-4E242591DE8F"
+    },
+    {
+        "QueueID": "25BD388F-5860-E911-80EF-005056A16FAC",
+        "ID": "19621249-1046-4573-B52B-787EE55A058A",
+        "CreatedDateTime": "20190416 160152.727",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150158.746</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "7C90AF3E-E9B2-4E27-9AA5-11403B0412D6"
+    },
+    {
+        "QueueID": "26BD388F-5860-E911-80EF-005056A16FAC",
+        "ID": "F71C6904-A532-4DD4-882D-2BAE5E6D7D24",
+        "CreatedDateTime": "20190416 160155.027",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150201.334</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "078197B6-A546-46A3-B110-1CD5A8DC8C72"
+    },
+    {
+        "QueueID": "27BD388F-5860-E911-80EF-005056A16FAC",
+        "ID": "558724C7-9865-4C92-9438-381F3A6ED4DE",
+        "CreatedDateTime": "20190416 160157.820",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_CLIENTANSWERS</Operation>\r\n    <DateStamp>20190416 150204.989</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_ClientAnswers_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "3E5EAB95-3DEC-4F9C-AA1C-E0C9A6D3A7EE"
+    },
+    {
+        "QueueID": "F78E6E95-5860-E911-80EF-005056A16FAC",
+        "ID": "8A801554-6FFB-4175-8AEC-F2FB23F3044C",
+        "CreatedDateTime": "20190416 160204.550",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "18AC8EA5-1966-420C-8604-D52F94302E2A"
+    },
+    {
+        "QueueID": "6425859E-5860-E911-80EF-005056A16FAC",
+        "ID": "8A114F18-CD26-4649-87F9-A400E98CE997",
+        "CreatedDateTime": "20190416 160215.440",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "PROCESSING",
+        "XMLID": "3A871F6A-C19A-45CB-841E-7AE56E34AE04"
+    },
+    {
+        "QueueID": "6525859E-5860-E911-80EF-005056A16FAC",
+        "ID": "DCCCD7FD-5FC4-4DF5-A3C8-9150AAB51848",
+        "CreatedDateTime": "20190416 160220.900",
+        "Source": "Pega",
+        "Target": "TCSStaging",
+        "Status": "ERROR",
+        "Message": "<?xml version='1.0' encoding='UTF-8'?>\r\n<WritebackInfo>\r\n  <OperationDetail>\r\n    <CaseNumber>3371840</CaseNumber>\r\n    <Operation>INSERT_COUNSELLORCLIENTSESSION</Operation>\r\n    <DateStamp>20190416 150234.342</DateStamp>\r\n    <Status>FAIL</Status>\r\n    <Exception>SQL Errors occurred while processing retrieved data: The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_CounsellorClientSession_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.; Caused by: The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_CounsellorClientSession_Clients\". The conflict occurred in database \"TCSStaging\", table \"dbo.Clients\", column 'ClientID'.</Exception>\r\n  </OperationDetail>\r\n</WritebackInfo>",
+        "XMLID": "D1E59A6E-0228-45BC-BD2E-0A97A4F0737B"
     }
-  ],
+],
   "queueitemdata": [
     {
       "id": "7115d73a-7053-4aca-be3b-59932e402606",

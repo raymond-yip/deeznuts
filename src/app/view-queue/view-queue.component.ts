@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { QueueitemService } from './../queueitem.service';
 import { QueueItem } from './../models/queue-item';
 import { QueueItemData } from './../models/queue-item-data';
-import { MatTableDataSource, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogConfig, MatPaginator } from '@angular/material';
 
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
+import { ParserError } from '@angular/compiler';
 
 @Component({
 	selector: 'app-view-queue',
@@ -20,6 +21,14 @@ export class ViewQueueComponent implements OnInit {
 	displayedColumns = ['id', 'datetime', 'source', 'target', 'status', 'errormessage', 'action'];
 
 	constructor(private queueItemService: QueueitemService, private dialog: MatDialog) { }
+
+	parseMessage(message: string): string {
+		const oParser = new DOMParser();
+		const oDOM = oParser.parseFromString(message, 'application/xml');
+		const displayMessage = (oDOM.documentElement.nodeName === 'html' ? message : 
+			oDOM.getElementsByTagName('Exception')[0].childNodes[0].nodeValue);
+		return displayMessage;
+	}
 
 	/* Open resend dialog to reset status to 'NEW' and resend message to Atom Queue */
 	openResendDialog(uid: string, target: string) {
