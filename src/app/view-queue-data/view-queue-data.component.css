@@ -1,0 +1,11 @@
+.notifications-container, .notification, .message {
+    z-index: 1999!important;
+}
+.info, .success, .warning, .error {
+    z-index: 1999;
+    padding: 20px;
+}
+.message {
+    color: #fff!important;
+    font-size: 1.5em;
+}

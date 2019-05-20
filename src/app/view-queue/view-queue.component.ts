@@ -8,6 +8,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
 import { ParserError } from '@angular/compiler';
+import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component';
 
 @Component({
 	selector: 'app-view-queue',
@@ -18,24 +19,35 @@ import { ParserError } from '@angular/compiler';
 export class ViewQueueComponent implements OnInit {
 	title = 'View Queue Items';
 	queueItemDataSource = new QueueItemDataSource(this.queueItemService);
-	displayedColumns = ['id', 'datetime', 'source', 'target', 'status', 'errormessage', 'action'];
+	displayedColumns = ['id', 'datetime', 'target', 'status', 'errormessage', 'action'];
 
 	constructor(private queueItemService: QueueitemService, private dialog: MatDialog) { }
 
 	parseMessage(message: string): string {
 		const oParser = new DOMParser();
 		const oDOM = oParser.parseFromString(message, 'application/xml');
-		const displayMessage = (oDOM.documentElement.nodeName === 'html' ? message : 
+		const displayMessage = (oDOM.documentElement.nodeName === 'html' ? message :
 			oDOM.getElementsByTagName('Exception')[0].childNodes[0].nodeValue);
 		return displayMessage;
 	}
 
+	formatDate(date: string): string {
+		const y = date.substring(0, 4);
+		const M = date.substring(4, 6);
+		const d = date.substring(6, 8);
+		const h = date.substring(9, 11);
+		const m = date.substring(11, 13);
+		const s = date.substring(13, 15);
+		return `${d}-${M}-${y} ${h}:${m}:${s}`;
+	}
+
 	/* Open resend dialog to reset status to 'NEW' and resend message to Atom Queue */
 	openResendDialog(uid: string, target: string) {
+		const Dialog: MatDialog = this.dialog;
 		const dialogConfig = new MatDialogConfig();
 		dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
-		dialogConfig.height = '300px';
+		dialogConfig.height = '250px';
 		dialogConfig.width = '300px';
 
 		dialogConfig.data = {
@@ -43,8 +55,7 @@ export class ViewQueueComponent implements OnInit {
 			target: target
 		};
 
-		// TODO: replace with actual component
-		const dialogRef = this.dialog.open(ViewQueueDataComponent, dialogConfig);
+		const dialogRef = Dialog.open(ResendDialogComponent, dialogConfig);
 
 		dialogRef.afterClosed().subscribe(
 			// TODO: remove item from grid
@@ -63,8 +74,8 @@ export class ViewQueueComponent implements OnInit {
 		this.getData(uid).subscribe(
 			d => {
 				dialogConfig.data = {
-					id: d.id,
-					xml: d.data
+					ID: d.ID,
+					XML: d.XML
 				};
 			}, this.handleError, function() {
 				const dialogRef = Dialog.open(ViewQueueDataComponent, dialogConfig);
@@ -72,7 +83,7 @@ export class ViewQueueComponent implements OnInit {
 				dialogRef.afterClosed().subscribe(
 					data => {
 						if (data !== undefined) {
-							console.log(data.id);
+							console.log(data.ID);
 						}
 					}
 				);

@@ -8,15 +8,11 @@
   <mat-table [dataSource]="queueItemDataSource">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.ID}} </mat-cell>
+      <mat-cell *matCellDef="let item"> <mat-checkbox color="primary" value="{item.ID}">{{item.ID}}</mat-checkbox> </mat-cell>
     </ng-container>
     <ng-container matColumnDef="datetime">
       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.CreatedDateTime}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="source">
-      <mat-header-cell *matHeaderCellDef> Source </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{item.Source}} </mat-cell>
+      <mat-cell *matCellDef="let item"> {{formatDate(item.CreatedDateTime)}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="target">
       <mat-header-cell *matHeaderCellDef> Target </mat-header-cell>
@@ -33,9 +29,9 @@
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let item">
-        <button mat-button class="mat-raised-button mat-primary" (click)="openResendDialog(item.id)"> Resend </button>
-        &nbsp;
-        <button mat-button class="mat-raised-button mat-primary" (click)="openEditDialog(item.id)"> Edit </button>
+        <!--<button mat-button class="mat-raised-button mat-primary" (click)="openResendDialog(item.ID, item.Target)"> Resend </button>
+        &nbsp;-->
+        <button mat-button class="mat-raised-button mat-primary" (click)="openEditDialog(item.ID)"> Edit </button>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -43,3 +39,4 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </mat-table>
 </mat-card>
+<notification-bar></notification-bar>

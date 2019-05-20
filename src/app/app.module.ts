@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MaterialModule } from './material/material.module';
 import { AceEditorModule } from 'ng2-ace-editor';
+import { NotificationBarModule } from 'ngx-notification-bar/release';
 
 import { ViewQueueComponent } from './view-queue/view-queue.component';
 import { XmlTransformComponent } from './xml-transform/xml-transform.component';
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
 		// Base64Component
 	],
 	entryComponents: [
-		ViewQueueDataComponent
+		ViewQueueDataComponent,
+		ResendDialogComponent
 	],
 	imports: [
 		RouterModule.forRoot(appRoutes, { enableTracing: true }), // tracing enabled for debugging
@@ -47,6 +49,7 @@ const appRoutes: Routes = [
 		BrowserAnimationsModule,
 		MaterialModule,
 		AceEditorModule,
+		NotificationBarModule,
 		StorageServiceModule
 	],
 	providers: [],
