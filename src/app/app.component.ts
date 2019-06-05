@@ -24,7 +24,7 @@ export class AppComponent {
 	}
 
 	login() {
-		this.oktaAuth.loginRedirect('/support/queue');
+		this.oktaAuth.loginRedirect('/');
 	}
 
 	async logout() {

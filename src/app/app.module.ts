@@ -34,9 +34,9 @@ const oktaConfig = Object.assign({
 const appRoutes: Routes = [
 	{ path: 'implicit/callback', component: OktaCallbackComponent },
 	{ path: 'login', component: LoginComponent },
-	{ path: 'support/queue', component: ViewQueueComponent, canActivate: [ OktaAuthGuard ] },
-	{ path: 'support/xsltransform', component: XmlTransformComponent },
-	{ path: 'support/validateschema', component: ValidateXmlSchemaComponent }
+	{ path: '', component: ViewQueueComponent, canActivate: [ OktaAuthGuard ] },
+	{ path: 'support/xsltransform', component: XmlTransformComponent, canActivate: [ OktaAuthGuard ] },
+	{ path: 'support/validateschema', component: ValidateXmlSchemaComponent, canActivate: [ OktaAuthGuard ] }
 ];
 
 @NgModule({
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
 		ViewQueueDataComponent,
 		ValidateXmlSchemaComponent,
 		ResendDialogComponent,
-		LoginComponent// ,
+		LoginComponent
 		// Base64Component
 	],
 	entryComponents: [
