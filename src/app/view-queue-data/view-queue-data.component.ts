@@ -8,7 +8,7 @@ import 'brace/worker/xml';
 import { QueueItemData } from './../models/queue-item-data';
 import { Observable } from 'rxjs';
 import { QueueitemService } from '../queueitem.service';
-import vkbeautify from 'vkbeautify';
+import * as vkbeautify from 'vkbeautify';
 import { ApiResponse } from '../models/api-response';
 
 @Component({

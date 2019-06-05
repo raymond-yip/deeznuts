@@ -6,9 +6,25 @@
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
   <mat-table [dataSource]="queueItemDataSource">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="primary"
+                      (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox color="primary"
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let item"> <mat-checkbox color="primary" value="{item.ID}">{{item.ID}}</mat-checkbox> </mat-cell>
+      <mat-cell *matCellDef="let item"> {{item.ID}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="datetime">
       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
@@ -36,7 +52,9 @@
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+  <button mat-button class="mat-raised-button mat-primary" (click)="resendSelected()"> Resend selected </button>
 </mat-card>
 <notification-bar></notification-bar>

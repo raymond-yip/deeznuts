@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { QueueitemService } from './../queueitem.service';
 import { QueueItem } from './../models/queue-item';
 import { QueueItemData } from './../models/queue-item-data';
 import { MatTableDataSource, MatDialog, MatDialogConfig, MatPaginator } from '@angular/material';
+import { OktaAuthService } from '@okta/okta-angular';
 
-import { DataSource } from '@angular/cdk/collections';
+import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
 import { ParserError } from '@angular/compiler';
@@ -17,11 +18,20 @@ import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component'
 	providers: [QueueitemService]
 })
 export class ViewQueueComponent implements OnInit {
+	isAuthenticated: boolean;
 	title = 'View Queue Items';
-	queueItemDataSource = new QueueItemDataSource(this.queueItemService);
-	displayedColumns = ['id', 'datetime', 'target', 'status', 'errormessage', 'action'];
+	queueItemDataSource: MatTableDataSource<QueueItem>;
+	selection = new SelectionModel<QueueItem>(true, []);
+	displayedColumns = ['select', 'id', 'datetime', 'target', 'status', 'errormessage', 'action'];
+	userName: string;
 
-	constructor(private queueItemService: QueueitemService, private dialog: MatDialog) { }
+	constructor(private queueItemService: QueueitemService, private dialog: MatDialog,
+		public oktaAuth: OktaAuthService) {
+			this.oktaAuth.$authenticationState.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+			 this.queueItemService.getAllQueueItems().subscribe( x => {
+				this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
+			});
+		}
 
 	parseMessage(message: string): string {
 		const oParser = new DOMParser();
@@ -91,10 +101,32 @@ export class ViewQueueComponent implements OnInit {
 		);
 	}
 
-	ngOnInit() { }
+	async ngOnInit() {
+		this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+		if (this.isAuthenticated) {
+			const userClaims = await this.oktaAuth.getUser();
+			this.userName = userClaims.name;
+		}
+	}
 
 	getData(id: string): Observable<QueueItemData> {
 		return this.queueItemService.getQueueItemDataById(id);
+	}
+
+	isAllSelected() {
+		const numSelected = this.selection.selected.length;
+		const numRows = this.queueItemDataSource.data.length;
+		return numSelected === numRows;
+	}
+
+	masterToggle() {
+		this.isAllSelected() ?
+		this.selection.clear() :
+		this.queueItemDataSource.data.forEach(row => this.selection.select(row));
+	}
+
+	resendSelected() {
+		console.log(this.selection);
 	}
 
 	private handleError (error: Response | any) {
