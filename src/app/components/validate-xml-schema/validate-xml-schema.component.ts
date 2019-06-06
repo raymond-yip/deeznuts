@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import 'brace/theme/monokai';
-import 'brace/ext/language_tools';
-import 'brace/mode/xml';
-import 'brace/worker/xml';
+
+import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/theme-monokai';
 
 @Component({
 	selector: 'app-validate-xml-schema',

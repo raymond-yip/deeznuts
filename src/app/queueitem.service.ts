@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { QueueItem } from './models/queue-item';
 import { QueueItemData } from './models/queue-item-data';
 import { ApiResponse } from './models/api-response';
+import { TriggerWritebackRequest } from './models/trigger-writeback-request';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,9 +19,8 @@ export class QueueitemService {
 		return this.api.getAllQueueItems();
 	}
 
-	resetQueueItemStatus(item: QueueItem): string {
-		item.status = 'NEW';
-		return this.api.updateQueueItem();
+	resetQueueItemStatus(request: TriggerWritebackRequest[]): Observable<ApiResponse> {
+		return this.api.updateQueueItem(request);
 
 	}
 

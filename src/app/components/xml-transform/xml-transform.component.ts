@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import 'brace/theme/monokai';
-import 'brace/ext/language_tools';
-import 'brace/mode/xml';
-import 'brace/worker/xml';
+
+import 'ace-builds/src-noconflict/mode-xml';
+import 'ace-builds/src-noconflict/theme-monokai';
+
 import { SESSION_STORAGE, StorageService } from 'angular-webstorage-service';
 
 const XML_KEY = 'XML_Data_Key';

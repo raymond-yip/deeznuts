@@ -2,7 +2,6 @@
 <mat-toolbar color="primary">
   <nav><span class="inline-icon material-icons">replay</span>Welcome to {{ title }}!</nav>
   <span class="spacer"></span>
-  <button *ngIf="!isAuthenticated" (click)="login()" mat-button> Login </button>
   <button *ngIf="isAuthenticated" (click)="logout()" mat-button> Logout </button>
 </mat-toolbar>
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { QueueitemService } from './../queueitem.service';
-import { QueueItem } from './../models/queue-item';
-import { QueueItemData } from './../models/queue-item-data';
-import { MatTableDataSource, MatDialog, MatDialogConfig, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { QueueitemService } from '../../queueitem.service';
+import { QueueItem } from '../../models/queue-item';
+import { QueueItemData } from '../../models/queue-item-data';
+import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { OktaAuthService } from '@okta/okta-angular';
 
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
@@ -10,6 +10,9 @@ import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
 import { ParserError } from '@angular/compiler';
 import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component';
+import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
+import { NotificationBarService, NotificationType } from 'ngx-notification-bar/release';
+import { load } from '@angular/core/src/render3';
 
 @Component({
 	selector: 'app-view-queue',
@@ -18,20 +21,25 @@ import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component'
 	providers: [QueueitemService]
 })
 export class ViewQueueComponent implements OnInit {
-	isAuthenticated: boolean;
+
 	title = 'View Queue Items';
+	disableResendSelectedButtonRef = true;
 	queueItemDataSource: MatTableDataSource<QueueItem>;
 	selection = new SelectionModel<QueueItem>(true, []);
 	displayedColumns = ['select', 'id', 'datetime', 'target', 'status', 'errormessage', 'action'];
 	userName: string;
+	notificationDelay = 5000;
 
 	constructor(private queueItemService: QueueitemService, private dialog: MatDialog,
-		public oktaAuth: OktaAuthService) {
-			this.oktaAuth.$authenticationState.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
-			 this.queueItemService.getAllQueueItems().subscribe( x => {
-				this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
-			});
+		public oktaAuth: OktaAuthService, private snackBar: MatSnackBar) {
+			this.load();
 		}
+
+	private load() {
+		this.queueItemService.getAllQueueItems().subscribe( x => {
+			this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
+		});
+	}
 
 	parseMessage(message: string): string {
 		const oParser = new DOMParser();
@@ -101,15 +109,9 @@ export class ViewQueueComponent implements OnInit {
 		);
 	}
 
-	async ngOnInit() {
-		this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-		if (this.isAuthenticated) {
-			const userClaims = await this.oktaAuth.getUser();
-			this.userName = userClaims.name;
-		}
-	}
+	ngOnInit() { }
 
-	getData(id: string): Observable<QueueItemData> {
+	private getData(id: string): Observable<QueueItemData> {
 		return this.queueItemService.getQueueItemDataById(id);
 	}
 
@@ -126,7 +128,28 @@ export class ViewQueueComponent implements OnInit {
 	}
 
 	resendSelected() {
-		console.log(this.selection);
+		let uids: TriggerWritebackRequest[] = [];
+		this.selection.selected.forEach( q => {
+			uids.push({UID: q.ID, Target: q.Target});
+		});
+		console.log(JSON.stringify(uids));
+		if (uids.length > 0) {
+			this.queueItemService.resetQueueItemStatus(uids).subscribe(
+				r => {
+					if (r.Status === 'Success') {
+						this.selection.selected.forEach(item => {
+							const index: number = this.queueItemDataSource.data.findIndex(d => d === item);
+							this.queueItemDataSource.data.splice(index, 1);
+							this.queueItemDataSource._updateChangeSubscription();
+						});
+						this.selection = new SelectionModel<QueueItem>(true, []);
+					}
+					this.snackBar.open(r.Message, null, {
+						duration: this.notificationDelay
+					});
+				}
+			);
+		}
 	}
 
 	private handleError (error: Response | any) {

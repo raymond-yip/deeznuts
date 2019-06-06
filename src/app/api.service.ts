@@ -7,6 +7,7 @@ import { QueueItem } from './models/queue-item';
 import { QueueItemData } from './models/queue-item-data';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, finalize } from 'rxjs/operators';
+import { TriggerWritebackRequest } from './models/trigger-writeback-request';
 
 const API_URL = environment.apiUrl;
 
@@ -37,8 +38,12 @@ export class ApiService {
 	}
 
 	// API: PUT /todos/:id
-	public updateQueueItem() {
-		return '';
+	public updateQueueItem(request: TriggerWritebackRequest[]): Observable<ApiResponse> {
+		return this.http.post(API_URL + 'ws/rest/support/v1/ClientSolution/TriggerWriteback', request)
+			.pipe(
+				map(response => new ApiResponse(response.json())),
+				catchError(this.handleError)
+			);
 	}
 
 	public updateQueueItemDataById(queueItemData: QueueItemData): Observable<ApiResponse> {

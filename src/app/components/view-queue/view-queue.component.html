@@ -55,6 +55,5 @@
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   
-  <button mat-button class="mat-raised-button mat-primary" (click)="resendSelected()"> Resend selected </button>
+  <button mat-button class="mat-raised-button mat-primary" (click)="resendSelected()" [disabled]="!selection.hasValue()"> Resend selected </button>
 </mat-card>
-<notification-bar></notification-bar>

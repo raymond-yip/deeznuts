@@ -20,15 +20,11 @@ export class AppComponent {
 
 	// tslint:disable-next-line:use-life-cycle-interface
 	async ngOnInit() {
-		this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-	}
-
-	login() {
-		this.oktaAuth.loginRedirect('/');
+		this.oktaAuth.isAuthenticated().then((auth) => { this.isAuthenticated = auth; });
 	}
 
 	async logout() {
 		await this.oktaAuth.logout();
-		this.router.navigateByUrl('/');
+		this.router.navigateByUrl('/login');
 	}
 }
