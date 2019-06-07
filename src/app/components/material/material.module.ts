@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import {
 	MatButtonModule,
@@ -11,7 +12,8 @@ import {
 	MatDialogModule,
 	MatPaginatorModule,
 	MatCheckboxModule,
-	MatSnackBarModule
+	MatSnackBarModule,
+	MatProgressSpinnerModule,
 } from '@angular/material';
 
 @NgModule({
@@ -27,7 +29,9 @@ import {
 		MatDialogModule,
 		MatPaginatorModule,
 		MatCheckboxModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatProgressSpinnerModule,
+		OverlayModule
 	],
 	exports: [
 		MatButtonModule,
@@ -40,7 +44,9 @@ import {
 		MatDialogModule,
 		MatPaginatorModule,
 		MatCheckboxModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatProgressSpinnerModule,
+		OverlayModule
 	]
 })
 export class MaterialModule { }

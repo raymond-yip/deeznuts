@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { QueueitemService } from '../../queueitem.service';
 import { QueueItem } from '../../models/queue-item';
 import { QueueItemData } from '../../models/queue-item-data';
-import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar, MatPaginator } from '@angular/material';
 import { OktaAuthService } from '@okta/okta-angular';
 
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
@@ -11,8 +11,6 @@ import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.compo
 import { ParserError } from '@angular/compiler';
 import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component';
 import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
-import { NotificationBarService, NotificationType } from 'ngx-notification-bar/release';
-import { load } from '@angular/core/src/render3';
 
 @Component({
 	selector: 'app-view-queue',
@@ -24,20 +22,34 @@ export class ViewQueueComponent implements OnInit {
 
 	title = 'View Queue Items';
 	disableResendSelectedButtonRef = true;
+
+	// material table data
 	queueItemDataSource: MatTableDataSource<QueueItem>;
 	selection = new SelectionModel<QueueItem>(true, []);
 	displayedColumns = ['select', 'id', 'datetime', 'target', 'status', 'errormessage', 'action'];
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 	userName: string;
+
+	// notification snackbar
 	notificationDelay = 5000;
+
+	// progress spinner
+	color = 'primary';
+	mode = 'indeterminate';
+	value = 50;
+	displayProgressSpinner = false;
 
 	constructor(private queueItemService: QueueitemService, private dialog: MatDialog,
 		public oktaAuth: OktaAuthService, private snackBar: MatSnackBar) {
 			this.load();
-		}
+	}
+
+	ngOnInit() { }
 
 	private load() {
 		this.queueItemService.getAllQueueItems().subscribe( x => {
 			this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
+			this.queueItemDataSource.paginator = this.paginator;
 		});
 	}
 
@@ -57,27 +69,6 @@ export class ViewQueueComponent implements OnInit {
 		const m = date.substring(11, 13);
 		const s = date.substring(13, 15);
 		return `${d}-${M}-${y} ${h}:${m}:${s}`;
-	}
-
-	/* Open resend dialog to reset status to 'NEW' and resend message to Atom Queue */
-	openResendDialog(uid: string, target: string) {
-		const Dialog: MatDialog = this.dialog;
-		const dialogConfig = new MatDialogConfig();
-		dialogConfig.disableClose = true;
-		dialogConfig.autoFocus = true;
-		dialogConfig.height = '250px';
-		dialogConfig.width = '300px';
-
-		dialogConfig.data = {
-			id: uid,
-			target: target
-		};
-
-		const dialogRef = Dialog.open(ResendDialogComponent, dialogConfig);
-
-		dialogRef.afterClosed().subscribe(
-			// TODO: remove item from grid
-		);
 	}
 
 	/* Open edit dialog to update XML for queue item */
@@ -109,8 +100,6 @@ export class ViewQueueComponent implements OnInit {
 		);
 	}
 
-	ngOnInit() { }
-
 	private getData(id: string): Observable<QueueItemData> {
 		return this.queueItemService.getQueueItemDataById(id);
 	}
@@ -128,11 +117,14 @@ export class ViewQueueComponent implements OnInit {
 	}
 
 	resendSelected() {
+		// show spinner
+		this.displayProgressSpinner = true;
+
 		let uids: TriggerWritebackRequest[] = [];
 		this.selection.selected.forEach( q => {
 			uids.push({UID: q.ID, Target: q.Target});
 		});
-		console.log(JSON.stringify(uids));
+		// console.log(JSON.stringify(uids));
 		if (uids.length > 0) {
 			this.queueItemService.resetQueueItemStatus(uids).subscribe(
 				r => {
@@ -144,6 +136,7 @@ export class ViewQueueComponent implements OnInit {
 						});
 						this.selection = new SelectionModel<QueueItem>(true, []);
 					}
+					this.displayProgressSpinner = false;	// hide spinner
 					this.snackBar.open(r.Message, null, {
 						duration: this.notificationDelay
 					});
