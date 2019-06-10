@@ -1,0 +1,11 @@
+.mat-column-select {
+    max-width: 60px;
+}
+.mat-column-datetime, .mat-column-target, .mat-column-status, .mat-column-action {
+    max-width: 160px;
+}
+.fill-remaining-space {
+	/* This fills the remaining space, by using flexbox. 
+		Every toolbar row uses a flexbox row layout. */
+	flex: 1 1 auto;
+}

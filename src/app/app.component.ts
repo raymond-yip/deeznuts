@@ -24,7 +24,9 @@ export class AppComponent {
 	}
 
 	async logout() {
-		await this.oktaAuth.logout();
+		try {
+			await this.oktaAuth.logout();
+		} catch (ex) {}
 		this.router.navigateByUrl('/login');
 	}
 }

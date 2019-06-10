@@ -1,12 +1,14 @@
+import { environment } from '../environments/environment';
+
 export default {
 		oidc: {
-				issuer: 'https://dev-562342.okta.com/oauth2/default',
-				redirectUri: 'http://localhost:4200/implicit/callback',
-				clientId: '0oaoe7te5wlHKxCog356',
-				scope: 'openid profile email',
+				issuer: environment.okta.oidc.issuer,
+				redirectUri: environment.okta.oidc.redirectUri,
+				clientId: environment.okta.oidc.clientId,
+				scope: environment.okta.oidc.scope,
 				testing: {
 					disableHttpsCheck: false
 				}
 		},
-		baseUrl: 'https://dev-562342.okta.com'
+		baseUrl: environment.okta.baseUrl
 };

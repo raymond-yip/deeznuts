@@ -8,9 +8,11 @@ import { OktaAuthService } from '@okta/okta-angular';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { ParserError } from '@angular/compiler';
 import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component';
 import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
+
 
 @Component({
 	selector: 'app-view-queue',
@@ -20,13 +22,13 @@ import { TriggerWritebackRequest } from '../../models/trigger-writeback-request'
 })
 export class ViewQueueComponent implements OnInit {
 
-	title = 'View Queue Items';
+	title = 'Queue Items';
 	disableResendSelectedButtonRef = true;
 
 	// material table data
 	queueItemDataSource: MatTableDataSource<QueueItem>;
 	selection = new SelectionModel<QueueItem>(true, []);
-	displayedColumns = ['select', 'id', 'datetime', 'target', 'status', 'errormessage', 'action'];
+	displayedColumns = ['select', 'id', 'datetime', 'target', 'status', 'action'];
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	userName: string;
 
@@ -47,9 +49,11 @@ export class ViewQueueComponent implements OnInit {
 	ngOnInit() { }
 
 	private load() {
+		this.displayProgressSpinner = true;
 		this.queueItemService.getAllQueueItems().subscribe( x => {
 			this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
 			this.queueItemDataSource.paginator = this.paginator;
+			this.displayProgressSpinner = false;	// hide spinner
 		});
 	}
 
@@ -98,6 +102,26 @@ export class ViewQueueComponent implements OnInit {
 				);
 			}
 		);
+	}
+
+	displayMessageDialog(message: string) {
+		const Dialog: MatDialog = this.dialog;
+		const dialogConfig = new MatDialogConfig();
+		dialogConfig.disableClose = true;
+		dialogConfig.autoFocus = true;
+		dialogConfig.height = '30%';
+		dialogConfig.width = '30%';
+		dialogConfig.data = { Message: message };
+
+		const dialogRef = Dialog.open(ModalDialogComponent, dialogConfig);
+
+				dialogRef.afterClosed().subscribe(
+					data => {
+						if (data !== undefined) {
+							console.log(data.Message);
+						}
+					}
+				);
 	}
 
 	private getData(id: string): Observable<QueueItemData> {

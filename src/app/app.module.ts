@@ -10,7 +10,6 @@ import { StorageServiceModule } from 'angular-webstorage-service';
 
 import { MaterialModule } from './components/material/material.module';
 import { AceEditorModule } from 'ng2-ace-editor';
-import { NotificationBarModule } from 'ngx-notification-bar/release';
 
 import { AppOverlayModule } from './overlay/overlay.module';
 import { ProgressSpinnerModule } from './progress-spinner/progress-spinner.module';
@@ -24,10 +23,10 @@ import { ValidateXmlSchemaComponent } from './components/validate-xml-schema/val
 import { ResendDialogComponent } from './components/resend-dialog/resend-dialog.component';
 // import { Base64Component } from './components/base64/base64.component';
 import { LoginComponent } from './components/login/login.component';
-import { LoadingPanelComponent } from './components/common/loading.component';
 
 import config from './okta.config';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 
 const oktaConfig = Object.assign({
 	onAuthRequired: ({oktaAuth, router}) => {
@@ -43,13 +42,15 @@ const oktaConfig = Object.assign({
 		ViewQueueDataComponent,
 		ValidateXmlSchemaComponent,
 		ResendDialogComponent,
-		LoginComponent
+		LoginComponent,
+		ModalDialogComponent
 		// Base64Component
 	],
 	entryComponents: [
 		ViewQueueDataComponent,
 		ResendDialogComponent,
-		ProgressSpinnerComponent
+		ProgressSpinnerComponent,
+		ModalDialogComponent
 	],
 	imports: [
 		OktaAuthModule.initAuth({
@@ -65,7 +66,6 @@ const oktaConfig = Object.assign({
 		BrowserAnimationsModule,
 		MaterialModule,
 		AceEditorModule,
-		NotificationBarModule,
 		StorageServiceModule,
 		AppOverlayModule,
 		ProgressSpinnerModule

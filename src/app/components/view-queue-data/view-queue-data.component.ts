@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { NotificationBarService, NotificationType } from 'ngx-notification-bar/release';
 
 import 'ace-builds/src-noconflict/mode-xml';
 import 'ace-builds/src-noconflict/theme-monokai';
@@ -33,38 +32,62 @@ export class ViewQueueDataComponent implements OnInit {
 
 	save() {
 		// validate XML against schema
-		this.queueItemService.validateXml(this.xmlData).subscribe(
-			x => {
-				if (x.toString() !== 'XML valid') {
-					// validate XML data against business rules
-					this.queueItemService.validateData(this.xmlData).subscribe(
-						y => {
-							if (y.toString() !== 'XML valid') {
-								// update XML
-								this.queueItemService.updateQueueItemDataById({ ID: this.id, XML: this.xmlData }).subscribe(
-									d => {
-										this.snackBar.open(d.Status, null, {
-											duration: this.notificationDelay
-										});
-										if (d.Status === 'Success') {
-											this.dialogRef.close();
+		if (this.validate()) {
+			this.queueItemService.validateXml(this.xmlData).subscribe(
+				x => {
+					if (x.toString() !== 'XML valid') {
+						// validate XML data against business rules
+						this.queueItemService.validateData(this.xmlData).subscribe(
+							y => {
+								if (y.toString() !== 'XML valid') {
+									// update XML
+									this.queueItemService.updateQueueItemDataById({ ID: this.id, XML: this.xmlData }).subscribe(
+										d => {
+											this.snackBar.open(d.Status, null, {
+												duration: this.notificationDelay
+											});
+											if (d.Status === 'Success') {
+												this.dialogRef.close();
+											}
 										}
-									}
-								);
-							} else {
-								this.snackBar.open(this.parseMessage(y.toString()), null, {
-									duration: this.notificationDelay
-								});
+									);
+								} else {
+									this.snackBar.open(this.parseMessage(y.toString()), null, {
+										duration: this.notificationDelay
+									});
+								}
 							}
-						}
-					);
-				} else {
-					this.snackBar.open(x.toString(), null, {
-						duration: this.notificationDelay
-					});
+						);
+					} else {
+						this.snackBar.open(x.toString(), null, {
+							duration: this.notificationDelay
+						});
+					}
 				}
+			);
+		}
+	}
+
+	private validate() {
+		const UID = this.id.toLowerCase();
+		const oParser = new DOMParser();
+		const oDOM = oParser.parseFromString(this.xmlData, 'application/xml');
+		if (oDOM.documentElement.getElementsByTagName('parsererror').length > 0) {
+			this.snackBar.open('XML is not well-formed!', null, {
+				duration: this.notificationDelay
+			});
+			return false;
+		} else {
+			const editedUID = oDOM.documentElement.getElementsByTagName('UID')[0].innerHTML;
+			if (editedUID !== UID) {
+				this.snackBar.open('UID ' + editedUID + ' does not match the original UID of ' + UID, null, {
+					duration: this.notificationDelay
+				});
+				return false;
+			} else {
+				return true;
 			}
-		);
+		}
 	}
 
 	close() {

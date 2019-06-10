@@ -1,3 +1,9 @@
+<mat-toolbar>
+	<span class="material-icons">home</span>&nbsp;
+	<span> Support Queue </span>
+	<span class="fill-remaining-space"></span>
+</mat-toolbar>
+
 <mat-card>
   <mat-card-header>
     <mat-card-title>
@@ -7,20 +13,20 @@
   </mat-card-header>
   <mat-table [dataSource]="queueItemDataSource">
     <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef>
         <mat-checkbox color="primary"
                       (change)="$event ? masterToggle() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
                       [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
         <mat-checkbox color="primary"
                       (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(row) : null"
                       [checked]="selection.isSelected(row)">
         </mat-checkbox>
-      </td>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -38,16 +44,14 @@
       <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
       <mat-cell *matCellDef="let item"> {{item.Status}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="errormessage">
-      <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
-      <mat-cell *matCellDef="let item"> {{parseMessage(item.Message)}} </mat-cell>
-    </ng-container>
     <ng-container matColumnDef="action">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let item">
         <!--<button mat-button class="mat-raised-button mat-primary" (click)="openResendDialog(item.ID, item.Target)"> Resend </button>
         &nbsp;-->
         <button mat-button class="mat-raised-button mat-primary" (click)="openEditDialog(item.ID)"> Edit </button>
+        &nbsp;
+        <button *ngIf="item.Message != undefined" mat-button class="mat-raised-button mat-primary" (click)="displayMessageDialog(item.Message)"> Message </button>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -55,6 +59,8 @@
   </mat-table>
   <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
+  <button mat-button class="mat-raised-button mat-primary" (click)="load()" > Reload </button>
+  &nbsp;
   <button mat-button class="mat-raised-button mat-primary" (click)="resendSelected()" [disabled]="!selection.hasValue()"> Resend selected </button>
 </mat-card>
 
