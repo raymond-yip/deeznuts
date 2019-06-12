@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>Edit XML Request</h2>
+<h2 mat-dialog-title>XML Request</h2>
 <mat-dialog-content class="mat-typography" style="height:70%">
   
   <div ace-editor
     [(text)]="xmlData"
     [mode]="'xml'"
     [theme]="'monokai'"
-    [readOnly]="false"
+    [readOnly]="readOnly"
     style="width:100%;height:100%;overflow:auto;font-size:1.2em;">
   </div>
 
@@ -13,5 +13,5 @@
 <mat-dialog-actions>
   <button mat-button class="mat-raised-button" (click)="close()">Cancel</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button class="mat-raised-button mat-primary" (click)="save()">Update</button>
+  <button mat-button *ngIf="!readOnly" class="mat-raised-button mat-primary" (click)="save()">Update</button>
 </mat-dialog-actions>

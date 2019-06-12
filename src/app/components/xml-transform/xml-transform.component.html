@@ -1,6 +1,10 @@
 <mat-toolbar>
 	<span class="material-icons">settings</span>
-	<span> XSL Transform</span>
+	<button mat-button [matMenuTriggerFor]="menu"> XSLT Transform </button>
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item routerLink="">Manage Queue</button>
+		<button mat-menu-item routerLink="support/xsltransform">XSLT Transform</button>
+	</mat-menu>
 	<span class="fill-remaining-space"></span>
 	<button mat-raised-button class="mat-raised-button mat-primary" (click)="transform()">
 		<span class="material-icons">settings_applications</span>Transform
@@ -14,7 +18,7 @@
 			[mode]="'xml'"
 			[theme]="'monokai'"
 			[readOnly]="false"
-			style="overflow:auto;font-size:1.2em;">
+			style="overflow:auto;font-size:1.1em;">
 			<span id="xmlLabel">
 				<span class="inline-icon material-icons">description</span>XML
 			</span>
@@ -25,7 +29,7 @@
 			[mode]="'xml'"
 			[theme]="'monokai'"
 			[readOnly]="false"
-			style="overflow:auto;font-size:1.2em;">
+			style="overflow:auto;font-size:1.1em;">
 			<span id="xslLabel">
 				<span class="inline-icon material-icons">description</span>XSL
 			</span>
@@ -36,7 +40,7 @@
 			[mode]="'xml'"
 			[theme]="'monokai'"
 			[readOnly]="false"
-			style="overflow:auto;font-size:1.2em;">
+			style="overflow:auto;font-size:1.1em;">
 			<span id="resultLabel">
 				<span class="inline-icon material-icons">description</span>Result
 			</span>

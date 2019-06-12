@@ -10,6 +10,7 @@ import { OktaAuthService } from '@okta/okta-angular';
 export class AppComponent {
 	title = 'deeznuts';
 	isAuthenticated: boolean;
+	user: any;
 
 	constructor(public oktaAuth: OktaAuthService, private router: Router) {
 		// Subscribe to authentication state changes
@@ -20,7 +21,10 @@ export class AppComponent {
 
 	// tslint:disable-next-line:use-life-cycle-interface
 	async ngOnInit() {
-		this.oktaAuth.isAuthenticated().then((auth) => { this.isAuthenticated = auth; });
+		this.oktaAuth.isAuthenticated().then((auth) => {
+			this.isAuthenticated = auth;
+		});
+		this.user = await this.oktaAuth.getUser();
 	}
 
 	async logout() {

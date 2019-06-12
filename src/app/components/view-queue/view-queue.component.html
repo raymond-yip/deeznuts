@@ -1,6 +1,10 @@
 <mat-toolbar>
 	<span class="material-icons">home</span>&nbsp;
-	<span> Support Queue </span>
+	<button mat-button [matMenuTriggerFor]="menu"> Support Queue </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="">Manage Queue</button>
+    <button mat-menu-item routerLink="support/xsltransform">XSLT Transform</button>
+  </mat-menu>
 	<span class="fill-remaining-space"></span>
 </mat-toolbar>
 
@@ -49,7 +53,8 @@
       <mat-cell *matCellDef="let item">
         <!--<button mat-button class="mat-raised-button mat-primary" (click)="openResendDialog(item.ID, item.Target)"> Resend </button>
         &nbsp;-->
-        <button mat-button class="mat-raised-button mat-primary" (click)="openEditDialog(item.ID)"> Edit </button>
+        <button *ngIf="item.Status == 'ERROR'" mat-button class="mat-raised-button mat-warn" (click)="openEditDialog(item.ID)"> Edit </button>
+        <button *ngIf="item.Status != 'ERROR'" mat-button class="mat-raised-button mat-primary" (click)="openViewDialog(item.ID)"> View </button>
         &nbsp;
         <button *ngIf="item.Message != undefined" mat-button class="mat-raised-button mat-primary" (click)="displayMessageDialog(item.Message)"> Message </button>
       </mat-cell>
@@ -61,7 +66,7 @@
 
   <button mat-button class="mat-raised-button mat-primary" (click)="load()" > Reload </button>
   &nbsp;
-  <button mat-button class="mat-raised-button mat-primary" (click)="resendSelected()" [disabled]="!selection.hasValue()"> Resend selected </button>
+  <button mat-button class="mat-raised-button mat-warn" (click)="resendSelected()" [disabled]="!selection.hasValue()"> Resend selected </button>
 </mat-card>
 
 

@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
-import { QueueitemService } from '../../queueitem.service';
+import { QueueitemService } from '../../services/queueitem/queueitem.service';
 import { QueueItem } from '../../models/queue-item';
 import { QueueItemData } from '../../models/queue-item-data';
 import { MatTableDataSource, MatDialog, MatDialogConfig, MatSnackBar, MatPaginator } from '@angular/material';
-import { OktaAuthService } from '@okta/okta-angular';
+import { OktaAuthService, UserClaims } from '@okta/okta-angular';
 
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { Observable, throwError } from 'rxjs';
 import { ViewQueueDataComponent } from '../view-queue-data/view-queue-data.component';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { ParserError } from '@angular/compiler';
-import { ResendDialogComponent } from '../resend-dialog/resend-dialog.component';
 import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
 
 
@@ -24,6 +22,7 @@ export class ViewQueueComponent implements OnInit {
 
 	title = 'Queue Items';
 	disableResendSelectedButtonRef = true;
+	user: UserClaims;
 
 	// material table data
 	queueItemDataSource: MatTableDataSource<QueueItem>;
@@ -46,9 +45,11 @@ export class ViewQueueComponent implements OnInit {
 			this.load();
 	}
 
-	ngOnInit() { }
+	async ngOnInit() {
+		this.user = await this.oktaAuth.getUser();
+	}
 
-	private load() {
+	load() {
 		this.displayProgressSpinner = true;
 		this.queueItemService.getAllQueueItems().subscribe( x => {
 			this.queueItemDataSource = new MatTableDataSource<QueueItem>(x);
@@ -79,6 +80,7 @@ export class ViewQueueComponent implements OnInit {
 	openEditDialog(uid: string) {
 		const Dialog: MatDialog = this.dialog;
 		const dialogConfig = new MatDialogConfig();
+		dialogConfig.id = 'EditDialog';
 		dialogConfig.disableClose = true;
 		dialogConfig.autoFocus = true;
 		dialogConfig.height = '70%';
@@ -88,7 +90,8 @@ export class ViewQueueComponent implements OnInit {
 			d => {
 				dialogConfig.data = {
 					ID: d.ID,
-					XML: d.XML
+					XML: d.XML,
+					User: this.user.name
 				};
 			}, this.handleError, function() {
 				const dialogRef = Dialog.open(ViewQueueDataComponent, dialogConfig);
@@ -99,6 +102,33 @@ export class ViewQueueComponent implements OnInit {
 							console.log(data.ID);
 						}
 					}
+				);
+			}
+		);
+	}
+
+	/* Open view dialog to update XML for queue item */
+	openViewDialog(uid: string) {
+		const Dialog: MatDialog = this.dialog;
+		const dialogConfig = new MatDialogConfig();
+		dialogConfig.id = 'ViewDialog';
+		dialogConfig.disableClose = true;
+		dialogConfig.autoFocus = true;
+		dialogConfig.height = '70%';
+		dialogConfig.width = '70%';
+
+		this.getData(uid).subscribe(
+			d => {
+				dialogConfig.data = {
+					ID: d.ID,
+					XML: d.XML,
+					User: this.user.name
+				};
+			}, this.handleError, function() {
+				const dialogRef = Dialog.open(ViewQueueDataComponent, dialogConfig);
+
+				dialogRef.afterClosed().subscribe(
+					data => { }
 				);
 			}
 		);
@@ -150,7 +180,7 @@ export class ViewQueueComponent implements OnInit {
 		});
 		// console.log(JSON.stringify(uids));
 		if (uids.length > 0) {
-			this.queueItemService.resetQueueItemStatus(uids).subscribe(
+			this.queueItemService.resetQueueItemStatus(uids, this.user.name).subscribe(
 				r => {
 					if (r.Status === 'Success') {
 						this.selection.selected.forEach(item => {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { environment } from './../environments/environment';
-import { Http } from '@angular/http';
+import { environment } from '../../../environments/environment';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
-import { ApiResponse } from './models/api-response';
-import { QueueItem } from './models/queue-item';
-import { QueueItemData } from './models/queue-item-data';
+import { ApiResponse } from '../../models/api-response';
+import { QueueItem } from '../../models/queue-item';
+import { QueueItemData } from '../../models/queue-item-data';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, finalize } from 'rxjs/operators';
-import { TriggerWritebackRequest } from './models/trigger-writeback-request';
+import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
 
 const API_URL = environment.apiUrl;
 
@@ -37,17 +37,18 @@ export class ApiService {
 			);
 	}
 
-	// API: PUT /todos/:id
-	public updateQueueItem(request: TriggerWritebackRequest[]): Observable<ApiResponse> {
-		return this.http.post(API_URL + 'ws/rest/support/v1/ClientSolution/TriggerWriteback', request)
+	public updateQueueItem(request: TriggerWritebackRequest[], user: string): Observable<ApiResponse> {
+		return this.http.post(API_URL + 'ws/rest/support/v1/ClientSolution/TriggerWriteback', request,
+		new RequestOptions({ headers: new Headers({ User: user}) }))
 			.pipe(
 				map(response => new ApiResponse(response.json())),
 				catchError(this.handleError)
 			);
 	}
 
-	public updateQueueItemDataById(queueItemData: QueueItemData): Observable<ApiResponse> {
-		return this.http.post(API_URL + 'ws/rest/support/v1/ClientSolution/QueueItemData', queueItemData)
+	public updateQueueItemDataById(queueItemData: QueueItemData, user: string): Observable<ApiResponse> {
+		return this.http.post(API_URL + 'ws/rest/support/v1/ClientSolution/QueueItemData', queueItemData,
+		new RequestOptions({ headers: new Headers({ User: user}) }))
 			.pipe(
 				map(response => new ApiResponse(response.json())),
 				catchError(this.handleError)
