@@ -1,0 +1,75 @@
+<mat-toolbar>
+	<span class="material-icons">home</span>&nbsp;
+	<button mat-button [matMenuTriggerFor]="menu"> Support Queue </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="">Manage Queue</button>
+    <button mat-menu-item routerLink="support/xsltransform">XSLT Transform</button>
+  </mat-menu>
+	<span class="fill-remaining-space"></span>
+</mat-toolbar>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ title }}
+    </mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-table [dataSource]="queueItemDataSource">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="primary"
+                      (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox color="primary"
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{item.ID}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="datetime">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{formatDate(item.CreatedDateTime)}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="target">
+      <mat-header-cell *matHeaderCellDef> Target </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{item.Target}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{item.Status}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let item">
+        <!--<button mat-button class="mat-raised-button mat-primary" (click)="openResendDialog(item.ID, item.Target)"> Resend </button>
+        &nbsp;-->
+        <button *ngIf="item.Status == 'ERROR'" mat-button class="mat-raised-button mat-warn" (click)="openEditDialog(item.ID)"> Edit </button>
+        <button *ngIf="item.Status != 'ERROR'" mat-button class="mat-raised-button mat-primary" (click)="openViewDialog(item.ID)"> View </button>
+        &nbsp;
+        <button *ngIf="item.Message != undefined" mat-button class="mat-raised-button mat-primary" (click)="displayMessageDialog(item.Message)"> Message </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+  <button mat-button class="mat-raised-button mat-primary" (click)="load()" > Reload </button>
+  &nbsp;
+  <button mat-button class="mat-raised-button mat-warn" (click)="resendSelected()" [disabled]="!selection.hasValue()"> Resend selected </button>
+</mat-card>
+
+
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="displayProgressSpinner">
+</app-progress-spinner>

@@ -1,10 +1,10 @@
 export class QueueItem {
-	id: string;
-	datetime: Date;
-	source: string;
-	target: string;
-	status: string;
-	errormessage: string;
+	ID: string;
+	CreatedDateTime: Date;
+	Source: string;
+	Target: string;
+	Status: string;
+	Message: string;
 
 	constructor(values: Object = {}) {
 		Object.assign(this, values);

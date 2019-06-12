@@ -1,6 +1,6 @@
-export class QueueItemData {
-	ID: string;
-	XML: string;
+export class ApiResponse {
+	Status: string;
+	Message: string;
 
 	constructor(values: Object = {}) {
 		Object.assign(this, values);

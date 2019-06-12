@@ -1,6 +1,6 @@
-export class QueueItemData {
-	ID: string;
-	XML: string;
+export class TriggerWritebackRequest {
+	UID: string;
+	Target: string;
 
 	constructor(values: Object = {}) {
 		Object.assign(this, values);

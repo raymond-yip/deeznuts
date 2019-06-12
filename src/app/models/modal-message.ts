@@ -1,6 +1,5 @@
-export class QueueItemData {
-	ID: string;
-	XML: string;
+export class ModalMessage {
+	Message: string;
 
 	constructor(values: Object = {}) {
 		Object.assign(this, values);

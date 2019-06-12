@@ -3,3 +3,6 @@
 	font-size: 1.7em;
 	padding-right: 10px;
 }
+.spacer {
+	flex: 1 1 auto;
+}

@@ -7,23 +7,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageServiceModule } from 'angular-webstorage-service';
-import { RouterModule, Routes } from '@angular/router';
 
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './components/material/material.module';
 import { AceEditorModule } from 'ng2-ace-editor';
 
-import { ViewQueueComponent } from './view-queue/view-queue.component';
-import { XmlTransformComponent } from './xml-transform/xml-transform.component';
-import { ViewQueueDataComponent } from './view-queue-data/view-queue-data.component';
-import { ValidateXmlSchemaComponent } from './validate-xml-schema/validate-xml-schema.component';
-import { ResendDialogComponent } from './resend-dialog/resend-dialog.component';
-import { Base64Component } from './base64/base64.component';
+import { AppOverlayModule } from './services/overlay/overlay.module';
+import { ProgressSpinnerModule } from './components/progress-spinner/progress-spinner.module';
 
-const appRoutes: Routes = [
-	{ path: '', component: ViewQueueComponent },
-	{ path: 'support/xsltransform', component: XmlTransformComponent },
-	{ path: 'support/validateschema', component: ValidateXmlSchemaComponent }
-];
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+
+import { ViewQueueComponent } from './components/view-queue/view-queue.component';
+import { XmlTransformComponent } from './components/xml-transform/xml-transform.component';
+import { ViewQueueDataComponent } from './components/view-queue-data/view-queue-data.component';
+import { LoginComponent } from './components/login/login.component';
+
+import config from './okta.config';
+import { ProgressSpinnerComponent } from './components/progress-spinner/progress-spinner.component';
+import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
+
+const oktaConfig = Object.assign({
+	onAuthRequired: ({oktaAuth, router}) => {
+		router.navigate(['/login']);
+	}
+}, config.oidc);
 
 @NgModule({
 	declarations: [
@@ -31,15 +37,21 @@ const appRoutes: Routes = [
 		ViewQueueComponent,
 		XmlTransformComponent,
 		ViewQueueDataComponent,
-		ValidateXmlSchemaComponent,
-		ResendDialogComponent// ,
-		// Base64Component
+		LoginComponent,
+		ModalDialogComponent
 	],
 	entryComponents: [
-		ViewQueueDataComponent
+		ViewQueueDataComponent,
+		ProgressSpinnerComponent,
+		ModalDialogComponent
 	],
 	imports: [
-		RouterModule.forRoot(appRoutes, { enableTracing: true }), // tracing enabled for debugging
+		OktaAuthModule.initAuth({
+			issuer: oktaConfig.issuer,
+			redirectUri: oktaConfig.redirectUri,
+			clientId: oktaConfig.clientId,
+			scope: oktaConfig.scope
+		}),
 		BrowserModule,
 		HttpModule,
 		HttpClientModule,
@@ -47,7 +59,9 @@ const appRoutes: Routes = [
 		BrowserAnimationsModule,
 		MaterialModule,
 		AceEditorModule,
-		StorageServiceModule
+		StorageServiceModule,
+		AppOverlayModule,
+		ProgressSpinnerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
