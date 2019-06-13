@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { Http, RequestOptions, Headers } from '@angular/http';
 
 import { ApiResponse } from '../../models/api-response';
@@ -8,8 +7,9 @@ import { QueueItemData } from '../../models/queue-item-data';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { TriggerWritebackRequest } from '../../models/trigger-writeback-request';
+import { AppConfig } from '../../../app.config';
 
-const API_URL = environment.apiUrl;
+const API_URL = AppConfig.settings.environment.apiUrl;
 
 @Injectable({
 	providedIn: 'root'

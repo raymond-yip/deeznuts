@@ -3,21 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	production: false,
-	apiUrl: '#{BoomiUrl}',
-	okta: {
-		oidc: {
-				issuer: '#{OktaIssuer}',
-				redirectUri: '#{OktaRedirectUri}',
-				clientId: '#{OktaClientID}',
-				scope: 'openid profile email',
-				testing: {
-					disableHttpsCheck: false
-				}
-		},
-		baseUrl: '#{OktaBaseUrl}',
-		apiKey: '#{OktaApiKey}'
-	}
+	name: 'development'
 };
 
 /*

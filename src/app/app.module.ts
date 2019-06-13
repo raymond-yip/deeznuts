@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { AppConfig } from '../app.config';
 
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +32,9 @@ const oktaConfig = Object.assign({
 	}
 }, config.oidc);
 
+export function initializeApp(appConfig: AppConfig) {
+	return () => appConfig.load();
+}
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -63,7 +67,13 @@ const oktaConfig = Object.assign({
 		AppOverlayModule,
 		ProgressSpinnerModule
 	],
-	providers: [],
+	providers: [
+		AppConfig, {
+			provide: APP_INITIALIZER,
+			useFactory: initializeApp,
+			deps: [AppConfig], multi: true
+		}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
